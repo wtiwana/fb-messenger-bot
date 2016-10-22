@@ -39,7 +39,12 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, "got it, thanks!, this doesnt make sense!!!")
+                if message_text=="1":
+                    send_message(sender_id, "I don't know your current Package")
+                elif message_text=="2":
+                    send_message(sender_id, "Here is the list of Packages\n 1, 2, 3, 4")
+                else:
+                    send_message(sender_id, "Hello, Welcome to Digicel's Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 for Your Package Details \n Reply with 2 for a list of New Packages,\n")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
