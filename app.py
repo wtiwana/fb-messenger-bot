@@ -40,7 +40,7 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                 
-                  send_message(sender_id, "Hello, Welcome to Digicel's Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 for Your Package Details \n Reply with 2 for a list of New Packages,\n")
+                    send_message(sender_id, "Hello, Welcome to Digicel's Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 for Your Package Details \n Reply with 2 for a list of New Packages,\n")
 
                 
                 if messaging_event.get("delivery"):  # delivery confirmation
