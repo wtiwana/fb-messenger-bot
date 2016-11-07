@@ -86,17 +86,16 @@ def send_button(recipient_id, message_text):
             "text": message_text
             "attachment":{
                             "type":"template",
-                                        "payload":{
+                                        "payload": {
                                                      "template_type":"button",
                                                       "text":"What do you want to do next?",
-                                                        "buttons":[
-                                                          {
+                                                        "buttons": {
                                                             "type":"web_url",
                                                             "url":"https://petersapparel.parseapp.com",
                                                             "title":"Show Website"
                                                           }
        
-                                                                   ]
+                                                                   
                                                     }
                            }
         }
