@@ -83,17 +83,17 @@ def send_button(recipient_id, message_text):
             "id": recipient_id
         },
         "message": {
-            "text": message_text
-            "attachment": { "type":"template", "payload": { "template_type":"button", "text":"What do you want to do next?", "buttons": {
+            "text": message_text,
+            "buttons": {
                                                             "type":"web_url",
                                                             "url":"https://petersapparel.parseapp.com",
                                                             "title":"Show Website"
                                                           },
        
                                                                    
-                                                    },
-                           },
-        },
+                                                   
+                           
+        }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
