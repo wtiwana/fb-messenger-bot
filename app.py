@@ -88,12 +88,12 @@ def send_button(recipient_id, message_text):
                                                             "type":"web_url",
                                                             "url":"https://petersapparel.parseapp.com",
                                                             "title":"Show Website"
-                                                          }
+                                                          },
        
                                                                    
-                                                    }
-                           }
-        }
+                                                    },
+                           },
+        },
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
