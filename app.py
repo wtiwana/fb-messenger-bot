@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import re
 
 import requests
 from flask import Flask, request
@@ -39,9 +40,18 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                
-                    send_message(sender_id, "Hello, Welcome to Digicel's Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 for Your Package Details \n Reply with 2 for a list of New Packages,\n")
-
+                    if message_text=="1":
+                        send_message(sender_id,"Enter your Order ID:")
+                    elif message_text=="2":
+                        send_message(sender_id,"Enter the Order ID you want to check:")
+                    
+                    elif getorderid(message_text):
+                        
+                        send_message(sender_id,"You Entered:")
+                        send_message(sender_id,getorderid(message_text))
+                    else:    
+                        send_message(sender_id, "Hello, Welcome to PlanB Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 if you have your amazon order ID and want to send recharge to a Digicel number. \n Reply with 2 to check your order ID,\n")
+                    
                 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -83,6 +93,58 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
     sys.stdout.flush()
 
+def getorderid(txtmsg):
+    re1 = '(\\d)'
+    re2 = '(\\d)'
+    re3 = '(\\d)'
+    re4 = '(-)'
+    re5 = '(\\d)'
+    re6 = '(\\d)'
+    re7 = '(\\d)'
+    re8 = '(\\d)'
+    re9 = '(\\d)'
+    re10 = '(\\d)'
+    re11 = '(\\d)'
+    re12 = '(-)'
+    re13 = '(\\d)'
+    re14 = '(\\d)'
+    re15 = '(\\d)'
+    re16 = '(\\d)'
+    re17 = '(\\d)'
+    re18 = '(\\d)'
+    re19 = '(\\d)'
+
+    rg = re.compile(
+        re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15 + re16 + re17 + re18 + re19,
+        re.IGNORECASE | re.DOTALL)
+    m = rg.search(txtmsg)
+    if m:
+        d1 = m.group(1)
+        d2 = m.group(2)
+        d3 = m.group(3)
+        c1 = m.group(4)
+        d4 = m.group(5)
+        d5 = m.group(6)
+        d6 = m.group(7)
+        d7 = m.group(8)
+        d8 = m.group(9)
+        d9 = m.group(10)
+        d10 = m.group(11)
+        c2 = m.group(12)
+        d11 = m.group(13)
+        d12 = m.group(14)
+        d13 = m.group(15)
+        d14 = m.group(16)
+        d15 = m.group(17)
+        d16 = m.group(18)
+        d17 = m.group(19)
+
+        order_number = d1 + d2 + d3 + c1 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + c2 + d11 + d12 + d13 + d14 + d15 + d16 + d17
+        if order_number:
+            return order_number
+        else:
+            return 0    
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
