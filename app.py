@@ -49,6 +49,7 @@ def webhook():
                         
                         send_message(sender_id,"You Entered:")
                         send_message(sender_id,getorderid(message_text))
+                        send_button(sender_id,"invoking button")
                     else:    
                         send_message(sender_id, "Hello, Welcome to PlanB Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 if you have your amazon order ID and want to send recharge to a Digicel number. \n Reply with 2 to check your order ID,\n")
                     
@@ -64,6 +65,46 @@ def webhook():
 
     return "ok", 200
 
+
+
+
+def send_button(recipient_id, message_text):
+
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "text": message_text
+            "attachment":{
+                            "type":"template",
+                                        "payload":{
+                                                     "template_type":"button",
+                                                      "text":"What do you want to do next?",
+                                                        "buttons":[
+                                                          {
+                                                            "type":"web_url",
+                                                            "url":"https://petersapparel.parseapp.com",
+                                                            "title":"Show Website"
+                                                          }
+       
+                                                                   ]
+                                                    }
+                           }
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
 
 def send_message(recipient_id, message_text):
 
