@@ -41,7 +41,8 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     if message_text=="1":
-                        send_message(sender_id,"Enter your Order ID:")
+                        #send_message(sender_id,"Enter your Order ID:")
+                        send_other(sender_id,"This is Send Other")
                     elif message_text=="2":
                         send_message(sender_id,"Enter the Order ID you want to check:")
                     
@@ -68,7 +69,51 @@ def webhook():
 
 
 
+def send_other(recipient_id, message_text):
 
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"What do you want to do next?",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://petersapparel.parseapp.com",
+            "title":"Show Website"
+          },
+          {
+            "type":"postback",
+            "title":"Start Chatting",
+            "payload":"USER_DEFINED_PAYLOAD"
+          }
+        ]
+      }
+    }
+            
+            
+            
+           
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+        
 
 def send_message(recipient_id, message_text):
 
