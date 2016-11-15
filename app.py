@@ -50,7 +50,7 @@ def webhook():
                         
                         send_message(sender_id,"You Entered:")
                         send_message(sender_id,getorderid(message_text))
-                        send_message(sender_id,chk_order(message_text))
+                        #send_message(sender_id,chk_order(message_text))
                         
                     else:    
                         send_message(sender_id, "Hello, Welcome to PlanB Facebook Page!!!, Here is What I Can Do For You: \n Reply with 1 if you have your amazon order ID and want to send recharge to a Digicel number. \n Reply with 2 to check your order ID,\n")
