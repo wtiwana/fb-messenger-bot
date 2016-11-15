@@ -67,11 +67,11 @@ def webhook():
 
     return "ok", 200
 
-def chk_order(message_text):
+#def chk_order(message_text):
     
-    OrderID=getorderid(message_text)
-    r=requests.post('http://www.marketsteam.com/chatorder', data = {'OrderID':OrderID})
-    return r
+ #    OrderID=getorderid(message_text)
+  #  r=requests.post('http://www.marketsteam.com/chatorder', data = {'OrderID':OrderID})
+  #  return r
 
 
 def send_other(recipient_id, message_text):
