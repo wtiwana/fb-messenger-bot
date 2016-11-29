@@ -96,12 +96,12 @@ def send_other(recipient_id, message_text):
         "buttons":[
           {
             "type":"web_url",
-            "url":"https://petersapparel.parseapp.com",
-            "title":"Show Website"
+            "url":"https://www.marketsteam.com",
+            "title":"Our Website"
           },
           {
             "type":"postback",
-            "title":"Start Chatting",
+            "title":"Test This",
             "payload":"USER_DEFINED_PAYLOAD"
           }
         ]
